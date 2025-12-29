@@ -1,12 +1,21 @@
 [package]
-name = "semgrep"
-version = "0.0.1"
+name = "zed-semgrep"
+version = "0.0.2"
 edition = "2021"
+license = "MIT"
+publish = false
 
 [lib]
 crate-type = ["cdylib"]
 
 [dependencies]
-zed_extension_api = "0.1"
-serde = { version = "1.0", features = ["derive"] }
+zed_extension_api = "0.7"
 serde_json = "1.0"
+
+[profile.release]
+# Good defaults for wasm size/perf
+lto = true
+codegen-units = 1
+opt-level = "s"
+panic = "abort"
+strip = "symbols"

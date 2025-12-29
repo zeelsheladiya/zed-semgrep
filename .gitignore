@@ -1,4 +1,19 @@
-grammars/
-target/
+# Rust
+/target/
+**/*.rs.bk
+
+# Zed extension build output
 extension.wasm
+*.wasm
+
+# Generated / vendored grammars (if you ever add them)
+grammars/
+
+# Editor / OS noise
 .DS_Store
+.idea/
+.vscode/
+
+# For library crates it's acceptable to not commit Cargo.lock
+# (If you want to commit it, remove this line and regenerate locally.)
+Cargo.lock
