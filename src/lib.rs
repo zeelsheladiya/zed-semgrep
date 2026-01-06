@@ -67,17 +67,7 @@ impl zed::Extension for SemgrepExtension {
             });
         }
 
-        // On Windows, auto-install via shell script is not reliable.
-        let (platform, _) = zed::current_platform();
-        if platform == zed::Os::Windows {
-            return Ok(zed::Command {
-                command: semgrep_cmd,
-                args,
-                env,
-            });
-        }
 
-        // For macOS/Linux, try to auto-install if the default "semgrep" command is missing.
         // If the user specified a custom path, we respect it and let it fail naturally if invalid.
         if semgrep_cmd != "semgrep" {
              return Ok(zed::Command {
@@ -87,43 +77,7 @@ impl zed::Extension for SemgrepExtension {
             });
         }
 
-        let script = r#"
-if ! command -v semgrep >/dev/null 2>&1; then
-    echo "Semgrep not found. Attempting auto-installation..." >&2
-    if command -v brew >/dev/null 2>&1; then
-        echo "Installing via Homebrew..." >&2
-        brew install semgrep >&2
-    elif command -v pip3 >/dev/null 2>&1; then
-        echo "Installing via pip3..." >&2
-        pip3 install --user semgrep >&2
-        if [ "$(uname)" = "Darwin" ]; then
-             export PATH="$HOME/Library/Python/3.9/bin:$PATH"
-        else
-             export PATH="$HOME/.local/bin:$PATH"
-        fi
-    else
-        echo "Error: Semgrep not found and no suitable package manager (brew, pip3) detected." >&2
-        echo "Please install semgrep manually." >&2
-        exit 1
-    fi
-fi
-
-if ! command -v semgrep >/dev/null 2>&1; then
-    if command -v python3 >/dev/null 2>&1; then
-        exec python3 -m semgrep lsp
-    fi
-    echo "Error: Semgrep installation appeared to succeed but 'semgrep' binary is still not found." >&2
-    exit 1
-fi
-
-exec semgrep lsp
-"#;
-        // Use a shell wrapper to handle the conditional install before starting the LSP.
-        Ok(zed::Command {
-            command: "/bin/sh".to_string(),
-            args: vec!["-c".to_string(), script.to_string()],
-            env,
-        })
+        Err("semgrep not found! Please install semgrep manually (e.g. `brew install semgrep` or `pip install semgrep`) and ensure it is in your PATH.".into())
     }
 
     fn language_server_initialization_options(

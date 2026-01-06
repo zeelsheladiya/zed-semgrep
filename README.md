@@ -2,13 +2,12 @@
 
 [Semgrep](https://semgrep.dev/) language server integration for [Zed](https://zed.dev).
 
-Identify bugs and security issues in your code in real-time. This extension brings the power of `semgrep lsp` directly into your editor, offering **zero-config** installation and "Professional" defaults so you see findings immediately.
+Identify bugs and security issues in your code in real-time. This extension brings the power of `semgrep lsp` directly into your editor, offering **zero-config** usage and "Professional" defaults so you see findings immediately.
 
 ## Features
 
 -   **Zero-Config Setup**: Works out of the box.
     -   Automatically detects if `semgrep` is installed.
-    -   **Auto-Install**: If missing on macOS/Linux, it attempts to install Semgrep via `brew` or `pip3`.
     -   **Smart Defaults**: Runs with `configuration: ["auto"]` and `only_git_dirty: false` so you see findings in all files immediately without needing a `.semgrep.yml`.
 -   **Real-time Diagnostics**: Highlights bugs and security vulnerabilities as you type.
 -   **Full Configuration**: Supports Zed's `settings.json` to override binary paths, environment variables, and scan rules.
@@ -19,11 +18,11 @@ Identify bugs and security issues in your code in real-time. This extension brin
 2.  Press `cmd-shift-x` to open the Extensions view.
 3.  Search for `Semgrep` and click Install.
 
-*Note: The extension will attempt to verify your `semgrep` installation on first run. If you are on Windows, or if auto-install fails, you will need to install Semgrep manually.*
+*Note: The extension requires `semgrep` to be installed on your system. It will not install it for you.*
 
 ### Manual Installation (If needed)
 
-If the auto-installer cannot run on your system and Semgrep is not found:
+If Semgrep is not found:
 
 -   **macOS**: `brew install semgrep`
 -   **Linux/WSL**: `pip install semgrep` (or check [Semgrep Installation Docs](https://semgrep.dev/docs/getting-started/))
@@ -77,7 +76,7 @@ If `semgrep` is in a non-standard location or you want to use a specific version
 ## Troubleshooting
 
 ### "Semgrep not found"
-If you see this error in the binary, it means the auto-installer (brew/pip) failed.
+If you see this error, it means `semgrep` was not found in your PATH.
 1.  Open a terminal.
 2.  Run `semgrep --version` to verify it's installed.
 3.  If not, run `brew install semgrep` or `pip3 install semgrep`.
