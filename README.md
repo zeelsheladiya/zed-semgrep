@@ -12,17 +12,17 @@ Identify bugs and security issues in your code in real-time. This extension brin
 -   **Real-time Diagnostics**: Highlights bugs and security vulnerabilities as you type.
 -   **Full Configuration**: Supports Zed's `settings.json` to override binary paths, environment variables, and scan rules.
 
-## Installation
+### Installation
 
 1.  Open Zed.
 2.  Press `cmd-shift-x` to open the Extensions view.
 3.  Search for `Semgrep` and click Install.
 
-*Note: The extension requires `semgrep` to be installed on your system. It will not install it for you.*
+**Auto-Installation**: The extension will automatically attempt to install `semgrep` (via Homebrew on macOS or pip on Linux) if it is not found in your PATH.
 
-### Manual Installation (If needed)
+### Manual Installation (Optional)
 
-If Semgrep is not found:
+If you prefer to install it yourself or the auto-install fails:
 
 -   **macOS**: `brew install semgrep`
 -   **Linux/WSL**: `pip install semgrep` (or check [Semgrep Installation Docs](https://semgrep.dev/docs/getting-started/))
